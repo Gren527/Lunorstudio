@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: lunor-app-studio-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: AI_PROVIDER
+        value: ollama
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: OLLAMA_MODEL
+        value: llama3:latest
+      - key: OLLAMA_TIMEOUT
+        value: "300"
+      - key: CORS_ORIGINS
+        sync: false
